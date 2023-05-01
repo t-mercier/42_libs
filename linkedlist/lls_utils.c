@@ -1,40 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_isalnum.c                                       :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: tmercier <tmercier@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/11/29 14:43:05 by tmercier      #+#    #+#                 */
-/*   Updated: 2021/11/29 14:43:08 by tmercier      ########   odam.nl         */
+/*   Created: 2022/08/01 14:11:24 by tmercier      #+#    #+#                 */
+/*   Updated: 2022/10/16 20:57:04 by tmercier      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Checks if c is a numric or alphabet character */
-
 #include "../inc/libft.h"
+#include "../inc/linkedlist.h"
 
-int	ft_isalnum(int c)
+bool	lls_is_empty(t_node *list)
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
+	return (list == NULL);
 }
 
-int	ft_isalpha(int c)
+int	lls_list_size(t_node *list)
 {
-	return (ft_islower(c) || ft_isupper(c));
+	int	size;
+
+	size = 0;
+	while (list)
+	{
+		list = list->next;
+		size++;
+	}
+	return (size);
 }
 
-int	ft_isascii(int c)
+t_node	*lls_get_last(t_node *list)
 {
-	return (c >= 0 && c <= 127);
+	if (!list)
+		return (0);
+	while (list->next)
+		list = list->next;
+	return (list);
 }
 
-int	ft_isprint(int c)
+void	lls_list_iterate(t_node *lst, void (*f)(int))
 {
-	return (c > 31 && c < 127);
-}
-
-int	ft_isdigit(int c)
-{
-	return (c > 47 && c < 58);
+	while (lst)
+	{
+		f(*(int *)lst->content);
+		lst = lst->next;
+	}
 }

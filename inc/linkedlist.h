@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   single_linkedlist.h                                :+:    :+:            */
+/*   linkedlist.h                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: tmercier <tmercier@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 19:18:04 by tmercier      #+#    #+#                 */
-/*   Updated: 2022/10/16 20:57:11 by tmercier      ########   odam.nl         */
+/*   Updated: 2023/03/14 18:24:43 by tmercier      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct s_list
 ** ---------------------------------
 **			lls_add.c
 */
-void				lls_add_front(t_node **list, t_node *new);
-void				lls_add_back(t_node **list, t_node *new);
+void				lls_add_front(t_node **list, t_node *node);
+void				lls_add_back(t_node **list, t_node *node);
 /* ---------------------------------
 **			lls_create.c
 */
@@ -68,8 +68,8 @@ t_node				*lls_get_last(t_node *list);
 ** ---------------------------------
 **			llc_add.c
 */
-void				llc_add_last(t_list **list, t_node *new);
-void				llc_add_last_silent(t_list **list, t_node *new);
+void				llc_add_last(t_list **list, t_node *node);
+void				llc_add_last_silent(t_list **list, t_node *node);
 /* ---------------------------------
 **			llc_create.c
 */

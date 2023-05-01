@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   3_algo.c                                          :+:    :+:            */
+/*   growth_array.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: tmercier <tmercier@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -10,36 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/graphic.h"
 #include "../inc/libft.h"
+#include "../inc/vectors.h"
 
-double	deg_to_rad(double degree)
+void	free_vector(t_vector *v)
 {
-	if (degree < 0)
-		degree = 360;
-	else if (degree > 360)
-		degree = 0;
-	return (degree * M_PI / 180);
+	free(v->data);
+	free(v);
 }
 
-void	init_cos_sin(t_rotate *r, void *param)
+t_vector	*vector_init(size_t esz)
 {
-	if (!param)
-		param = NULL;
-	r->cx = (float)cos(deg_to_rad(r->roll));
-	r->sx = (float)sin(deg_to_rad(r->roll));
-	r->cy = (float)cos(deg_to_rad(r->pitch));
-	r->sy = (float)sin(deg_to_rad(r->pitch));
-	r->cz = (float)cos(deg_to_rad(r->yaw));
-	r->sz = (float)sin(deg_to_rad(r->yaw));
+	t_vector	*v;
+
+	v = ft_malloc(sizeof(t_vector));
+	v->len = 0;
+	v->cap = 2;
+	v->esz = esz;
+	v->data = ft_malloc(v->esz * v->cap);
+	return (v);
 }
 
-void	mlx_error_exit(void)
+void	vector_append(t_vector *v, void *x)
 {
-	char	*s;
-
-	s = ft_strdup(mlx_strerror(mlx_errno));
-	ft_putstr_fd(s, STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
-	exit(EXIT_FAILURE);
+	if (v->len == v->cap)
+	{
+		v->data = ft_realloc(v->data, v->cap * 2 * v->esz, v->esz * v->cap);
+		if (!v->data)
+			exit_message("[ MALLOC FAIL ]\n\n", 1);
+		v->cap *= 2;
+	}
+	ft_memcpy(v->data + (v->len++) * v->esz, x, v->esz);
 }
